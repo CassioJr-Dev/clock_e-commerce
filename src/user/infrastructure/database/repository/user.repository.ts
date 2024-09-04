@@ -1,9 +1,10 @@
 import { PrismaService } from '@/shared/database/database.service'
 import { UserEntity } from '@/user/model/user.entity'
-import { ConflictException, NotFoundException } from '@nestjs/common'
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common'
 
+@Injectable()
 export class UserRepository {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: PrismaService) { }
 
   async findByEmail(email: string): Promise<UserEntity> {
     try {
