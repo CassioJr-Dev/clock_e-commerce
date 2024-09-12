@@ -5,11 +5,12 @@ import { UserRepository } from '@/user/infrastructure/database/repository/user.r
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { randomUUID } from 'node:crypto'
 import { UserInput } from '../../dtos/user-input'
+import { UserOutput } from '../../dtos/user-output'
 
 export namespace CreateUserService {
   export type Input = UserInput
 
-  export type Output = void
+  export type Output = UserOutput
 
   @Injectable()
   export class UseCase implements DefaultUseCase<Input, Output> {
@@ -25,6 +26,8 @@ export namespace CreateUserService {
       }
 
       await this.userRepository.emailExists(email)
+
+      await this.userRepository.telephoneExists(telephone)
 
       const hashPassword = await this.hashProvider.generateHash(password)
 

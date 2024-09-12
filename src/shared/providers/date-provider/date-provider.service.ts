@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common'
+export class DateProviderService {
+  static toDate(): Date {
+    const newDate = new Date()
+    newDate.setUTCHours(newDate.getUTCHours() - 3)
 
-@Injectable()
-export class DateProviderService {}
+    return newDate
+  }
+}

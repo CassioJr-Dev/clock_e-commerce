@@ -1,10 +1,14 @@
 import { PrismaService } from '@/shared/database/database.service'
 import { UserEntity } from '@/user/model/user.entity'
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common'
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common'
 
 @Injectable()
 export class UserRepository {
-  constructor(private prismaService: PrismaService) { }
+  constructor(private prismaService: PrismaService) {}
 
   async findByEmail(email: string): Promise<UserEntity> {
     try {
@@ -48,13 +52,13 @@ export class UserRepository {
     }
   }
 
-  async insert(entity: UserEntity): Promise<void> {
-    await this.prismaService.user.create({
+  async insert(entity: UserEntity): Promise<UserEntity> {
+    return this.prismaService.user.create({
       data: entity,
     })
   }
 
-  findById(userId: string): Promise<UserEntity> {
+  async findById(userId: string): Promise<UserEntity> {
     return this._get(userId)
   }
 
@@ -62,10 +66,10 @@ export class UserRepository {
     return this.prismaService.user.findMany()
   }
 
-  async update(entity: UserEntity): Promise<void> {
+  async update(entity: UserEntity): Promise<UserEntity> {
     await this._get(entity.userId)
 
-    await this.prismaService.user.update({
+    return await this.prismaService.user.update({
       data: entity,
       where: {
         userId: entity.userId,

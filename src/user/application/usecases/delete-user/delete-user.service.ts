@@ -12,6 +12,7 @@ export namespace DeleteUserService {
   @Injectable()
   export class UseCase implements DefaultUseCase<Input, Output> {
     constructor(private readonly userRepository: UserRepository) {}
+
     async execute(input: Input): Promise<void> {
       await this.userRepository.delete(input.userId)
     }
