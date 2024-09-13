@@ -1,3 +1,4 @@
+import { AuthModule } from '@/auth/auth.module'
 import { DatabaseModule } from '@/shared/database/database.module'
 import { HashProviderModule } from '@/shared/providers/hash-provider/hash-provider.module'
 import { Module } from '@nestjs/common'
@@ -11,7 +12,7 @@ import { UserRepository } from './database/repository/user.repository'
 import { UserController } from './user.controller'
 
 @Module({
-  imports: [DatabaseModule, HashProviderModule],
+  imports: [DatabaseModule, HashProviderModule, AuthModule],
   controllers: [UserController],
   providers: [
     UserRepository,
@@ -20,7 +21,7 @@ import { UserController } from './user.controller'
     GetUserService.UseCase,
     DeleteUserService.UseCase,
     FindAllUsersService.UseCase,
-    LoginUserService,
+    LoginUserService.UseCase,
   ],
 })
 export class UserModule {}
