@@ -8,7 +8,7 @@ import {
 
 @Injectable()
 export class UserRepository {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: PrismaService) { }
 
   async findByEmail(email: string): Promise<UserEntity> {
     try {
@@ -86,13 +86,11 @@ export class UserRepository {
 
   protected async _get(userId: string): Promise<UserEntity> {
     try {
-      return await this.prismaService.user.findUnique({
+      return await this.prismaService.user.findUniqueOrThrow({
         where: { userId },
       })
     } catch {
-      throw new NotFoundException(
-        `Usuário não encontrado usando o ID: ${userId}`,
-      )
+      throw new NotFoundException(`Usuário não encontrado usando o ID: ${userId}`)
     }
   }
 }

@@ -32,16 +32,18 @@ export class UserController {
     private readonly deleteUserService: DeleteUserService.UseCase,
     private readonly loginUserService: LoginUserService.UseCase,
     private readonly authService: AuthService,
-  ) {}
+  ) { }
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    const output = await this.createUserService.execute(createUserDto)
-    const tokenJwt = await this.authService.generateJwt(output.userId)
+    const { password, ...restOutput } = await this.createUserService.execute(createUserDto)
+    const tokenJwt = await this.authService.generateJwt(restOutput.userId)
 
     return {
-      ...tokenJwt,
-      ...output,
+      data: {
+        ...restOutput,
+      },
+      ...tokenJwt
     }
   }
 
@@ -50,23 +52,37 @@ export class UserController {
     @Body() loginUserDto: LoginUserDto,
     @Headers('Authorization') authorization: string,
   ) {
-    const output = await this.loginUserService.execute(loginUserDto)
-    const tokenJwt = await this.authService.generateJwt(output.userId)
+    const { password, ...restOutput } = await this.loginUserService.execute(loginUserDto)
+    const tokenJwt = await this.authService.generateJwt(restOutput.userId)
 
     return {
-      ...tokenJwt,
-      ...output,
+      data: {
+        ...restOutput,
+      },
+      ...tokenJwt
     }
   }
 
   @Get()
   async findAll() {
-    return this.findAllUsersService.execute()
+    const find = await this.findAllUsersService.execute()
+
+    for (const index in find) {
+      delete find[index].password
+    }
+
+    return {
+      data: find
+    }
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.GetUserService.execute({ userId: id })
+    const getUser = await this.GetUserService.execute({ userId: id })
+    delete getUser.password
+    return {
+      data: getUser
+    }
   }
 
   @UseGuards(AuthGuard)
@@ -76,10 +92,14 @@ export class UserController {
     @Headers('Authorization') authorization: string,
   ) {
     const extractUserId = await this.authService.extractPayload(authorization)
-    return this.updateUserService.execute({
+    const updateUser = await this.updateUserService.execute({
       userId: extractUserId,
       ...updateUserDto,
     })
+    delete updateUser.password
+    return {
+      data: updateUser
+    }
   }
 
   @HttpCode(204)

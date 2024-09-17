@@ -8,17 +8,19 @@ import { AuthService } from './auth.service'
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest()
     const token = this.extractTokenFromHeader(request)
     if (!token) {
+      console.log('Aqui')
       throw new UnauthorizedException()
     }
     try {
       request['user'] = await this.authService.verifyJwt(token)
-    } catch {
+    } catch (error) {
+      console.log(error)
       throw new UnauthorizedException()
     }
     return true
