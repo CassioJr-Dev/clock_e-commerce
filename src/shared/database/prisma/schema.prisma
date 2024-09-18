@@ -17,3 +17,28 @@ model User {
 
   @@map("user")
 }
+
+model Admin {
+  adminId    String   @id @unique @db.Text
+  name       String   @db.VarChar(255)
+  email      String   @unique @db.VarChar(255)
+  password   String   @db.VarChar(100)
+  created_at DateTime
+
+  product Product[]
+
+  @@map("admin")
+}
+
+model Product {
+  productId   String   @id @unique @db.Text
+  name        String   @db.Text
+  description String?  @db.Text
+  price       Decimal  @db.Decimal(10, 2)
+  stock       Int
+  admin       Admin    @relation(fields: [adminId], references: [adminId], onDelete: Cascade)
+  adminId     String
+  created_at  DateTime
+
+  @@map("product")
+}
