@@ -35,7 +35,10 @@ model Product {
   name        String   @db.Text
   description String?  @db.Text
   price       Decimal  @db.Decimal(10, 2)
+  oldPrice    Decimal? @db.Decimal(10, 2)
   stock       Int
+  image       String   @db.Text
+  category    String   @db.VarChar(100)
   admin       Admin    @relation(fields: [adminId], references: [adminId], onDelete: Cascade)
   adminId     String
   created_at  DateTime
