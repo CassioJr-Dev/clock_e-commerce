@@ -17,7 +17,7 @@ export namespace CreateUserService {
     constructor(
       private readonly userRepository: UserRepository,
       private readonly hashProvider: HashProviderService,
-    ) { }
+    ) {}
     async execute(input: Input): Promise<Output> {
       const { name, email, password, telephone } = input
 

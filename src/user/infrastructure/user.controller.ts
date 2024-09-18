@@ -32,18 +32,19 @@ export class UserController {
     private readonly deleteUserService: DeleteUserService.UseCase,
     private readonly loginUserService: LoginUserService.UseCase,
     private readonly authService: AuthService,
-  ) { }
+  ) {}
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    const { password, ...restOutput } = await this.createUserService.execute(createUserDto)
+    const { password, ...restOutput } =
+      await this.createUserService.execute(createUserDto)
     const tokenJwt = await this.authService.generateJwt(restOutput.userId)
 
     return {
       data: {
         ...restOutput,
       },
-      ...tokenJwt
+      ...tokenJwt,
     }
   }
 
@@ -52,14 +53,15 @@ export class UserController {
     @Body() loginUserDto: LoginUserDto,
     @Headers('Authorization') authorization: string,
   ) {
-    const { password, ...restOutput } = await this.loginUserService.execute(loginUserDto)
+    const { password, ...restOutput } =
+      await this.loginUserService.execute(loginUserDto)
     const tokenJwt = await this.authService.generateJwt(restOutput.userId)
 
     return {
       data: {
         ...restOutput,
       },
-      ...tokenJwt
+      ...tokenJwt,
     }
   }
 
@@ -72,7 +74,7 @@ export class UserController {
     }
 
     return {
-      data: find
+      data: find,
     }
   }
 
@@ -81,7 +83,7 @@ export class UserController {
     const getUser = await this.GetUserService.execute({ userId: id })
     delete getUser.password
     return {
-      data: getUser
+      data: getUser,
     }
   }
 
@@ -98,7 +100,7 @@ export class UserController {
     })
     delete updateUser.password
     return {
-      data: updateUser
+      data: updateUser,
     }
   }
 

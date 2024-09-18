@@ -12,7 +12,7 @@ export namespace GetUserService {
 
   @Injectable()
   export class UseCase implements DefaultUseCase<Input, Output> {
-    constructor(private readonly userRepository: UserRepository) { }
+    constructor(private readonly userRepository: UserRepository) {}
 
     async execute(input: Input): Promise<Output> {
       return this.userRepository.findById(input.userId)

@@ -7,7 +7,7 @@ export type GenerateJwtProps = {
 
 @Injectable()
 export class AuthService {
-  constructor(private jwtService: JwtService) { }
+  constructor(private jwtService: JwtService) {}
 
   async generateJwt(userId: string): Promise<GenerateJwtProps> {
     const accessToken = await this.jwtService.signAsync({ id: userId }, {})

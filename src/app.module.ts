@@ -10,4 +10,4 @@ import { UserModule } from './user/infrastructure/user.module'
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

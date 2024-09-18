@@ -11,13 +11,12 @@ export namespace UpdateUserService {
 
   @Injectable()
   export class UseCase implements DefaultUseCase<Input, Output> {
-    constructor(private readonly userRepository: UserRepository) { }
+    constructor(private readonly userRepository: UserRepository) {}
 
     async execute(input: Input): Promise<Output> {
       const { userId, name, email, password, telephone } = input
 
       const user = await this.userRepository.findById(userId)
-
 
       if (name) user.name = name
       if (email) user.email = email
