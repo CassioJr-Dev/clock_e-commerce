@@ -6,6 +6,7 @@ export type SearchProps<Filter = string> = {
   sort?: string | null
   sortDir?: SortDirection | null
   filter?: Filter | null
+  filterField?: string | null
 }
 
 export type SearchResultProps<E, Filter> = {
@@ -24,6 +25,7 @@ export class SearchParams<Filter = string> {
   protected _sort: string | null
   protected _sortDir: SortDirection | null
   protected _filter: Filter | null
+  protected _filterField: string | null
 
   constructor(props: SearchProps<Filter> = {}) {
     this.page = props.page
@@ -31,6 +33,7 @@ export class SearchParams<Filter = string> {
     this.sort = props.sort
     this.sortDir = props.sortDir
     this.filter = props.filter
+    this.filterField = props.filterField
   }
 
   get page() {
@@ -93,6 +96,15 @@ export class SearchParams<Filter = string> {
       value === null || value === undefined || value === ''
         ? null
         : (`${value}` as any)
+  }
+
+  get filterField() {
+    return this._filterField
+  }
+
+  private set filterField(value: string | null) {
+    this._filterField =
+      value === null || value === undefined || value === '' ? null : `${value}`
   }
 }
 
