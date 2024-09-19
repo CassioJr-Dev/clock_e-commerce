@@ -1,6 +1,6 @@
+import { UseCase as DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { DateProviderService } from '@/shared/providers/date-provider/date-provider.service'
 import { HashProviderService } from '@/shared/providers/hash-provider/hash-provider.service'
-import { UseCase as DefaultUseCase } from '@/shared/usecases/use-case'
 import { UserRepository } from '@/user/infrastructure/database/repository/user.repository'
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { randomUUID } from 'node:crypto'

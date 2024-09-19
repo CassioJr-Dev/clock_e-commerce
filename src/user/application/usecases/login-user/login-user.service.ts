@@ -1,5 +1,5 @@
+import { UseCase as DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { HashProviderService } from '@/shared/providers/hash-provider/hash-provider.service'
-import { UseCase as DefaultUseCase } from '@/shared/usecases/use-case'
 import { UserRepository } from '@/user/infrastructure/database/repository/user.repository'
 import {
   BadRequestException,

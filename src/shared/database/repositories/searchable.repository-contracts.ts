@@ -17,6 +17,7 @@ export type SearchResultProps<E, Filter> = {
   sort: string | null
   sortDir: string | null
   filter: Filter | null
+  filterField: string | null
 }
 
 export class SearchParams<Filter = string> {
@@ -117,6 +118,7 @@ export class SearchResult<E, Filter = string> {
   readonly sort: string | null
   readonly sortDir: string | null
   readonly filter: Filter | null
+  readonly filterField: string | null
 
   constructor(props: SearchResultProps<E, Filter>) {
     this.items = props.items
@@ -127,18 +129,6 @@ export class SearchResult<E, Filter = string> {
     this.sort = props.sort ?? null
     this.sortDir = props.sortDir ?? null
     this.filter = props.filter ?? null
+    this.filterField = props.filterField ?? null
   }
-
-  // toJSON(forceEntity = false) {
-  //   return {
-  //     items: forceEntity ? this.items.map(item => item.toJSON()) : this.items,
-  //     total: this.total,
-  //     currentPage: this.currentPage,
-  //     perPage: this.perPage,
-  //     lastPage: this.lastPage,
-  //     sort: this.sort,
-  //     sortDir: this.sortDir,
-  //     filter: this.filter,
-  //   };
-  // }
 }

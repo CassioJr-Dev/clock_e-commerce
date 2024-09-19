@@ -1,5 +1,5 @@
 import { ProductRepository } from '@/product/infrastructure/database/repository/product.repository'
-import { UseCase as DefaultUseCase } from '@/shared/usecases/use-case'
+import { UseCase as DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { Injectable } from '@nestjs/common'
 import { ProductOutput } from '../../dtos/product-output.dto'
 

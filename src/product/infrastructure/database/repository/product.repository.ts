@@ -68,6 +68,7 @@ export class ProductRepository {
       sort: orderByField,
       sortDir: orderByDir,
       filter: props.filter,
+      filterField: props.filterField,
     })
   }
 

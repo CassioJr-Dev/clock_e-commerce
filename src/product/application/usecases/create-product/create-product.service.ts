@@ -1,6 +1,6 @@
 import { ProductRepository } from '@/product/infrastructure/database/repository/product.repository'
+import { UseCase as DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { DateProviderService } from '@/shared/providers/date-provider/date-provider.service'
-import { UseCase as DefaultUseCase } from '@/shared/usecases/use-case'
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { randomUUID } from 'crypto'
 import { ProductInput } from '../../dtos/product-input.dto'

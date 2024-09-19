@@ -1,4 +1,4 @@
-import { UseCase as DefaultUseCase } from '@/shared/usecases/use-case'
+import { UseCase as DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { Injectable } from '@nestjs/common'
 
 export namespace SearchProductService {
