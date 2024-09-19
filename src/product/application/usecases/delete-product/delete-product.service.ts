@@ -1,14 +1,20 @@
+import { ProductRepository } from '@/product/infrastructure/database/repository/product.repository'
 import { UseCase as DefaultUseCase } from '@/shared/usecases/use-case'
 import { Injectable } from '@nestjs/common'
 
 export namespace DeleteProductService {
-  export type Input = {}
-  export type Output = {}
+  export type Input = {
+    productId: string
+    adminId: string
+  }
+  export type Output = void
 
   @Injectable()
   export class UseCase implements DefaultUseCase<Input, Output> {
-    execute(input: Input): Output | Promise<Output> {
-      throw new Error('Method not implemented.')
+    constructor(private readonly productRepository: ProductRepository) {}
+
+    async execute(input: Input): Promise<void> {
+      await this.productRepository.delete(input.productId, input.adminId)
     }
   }
 }
