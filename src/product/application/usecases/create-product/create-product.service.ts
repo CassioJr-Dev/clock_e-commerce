@@ -1,14 +1,53 @@
+import { ProductRepository } from '@/product/infrastructure/database/repository/product.repository'
+import { DateProviderService } from '@/shared/providers/date-provider/date-provider.service'
 import { UseCase as DefaultUseCase } from '@/shared/usecases/use-case'
-import { Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable } from '@nestjs/common'
+import { randomUUID } from 'crypto'
+import { ProductInput } from '../../dtos/product-input.dto'
+import { ProductOutput } from '../../dtos/product-output.dto'
 
 export namespace CreateProductService {
-  export type Input = {}
-  export type Output = {}
+  export type Input = ProductInput
+  export type Output = ProductOutput
 
   @Injectable()
   export class UseCase implements DefaultUseCase<Input, Output> {
-    execute(input: Input): Output | Promise<Output> {
-      throw new Error('Method not implemented.')
+    constructor(private readonly productRepository: ProductRepository) {}
+
+    async execute(input: Input): Promise<Output> {
+      const {
+        name,
+        description,
+        price,
+        oldPrice,
+        stock,
+        image,
+        category,
+        adminId,
+      } = input
+
+      if (!name || !price || !stock || !image || !category || !adminId) {
+        throw new BadRequestException('Dados de entrada não fornecidos')
+      }
+
+      const productId = randomUUID()
+
+      const created_at = DateProviderService.toDate()
+
+      const entity = {
+        productId,
+        name,
+        description,
+        price,
+        oldPrice,
+        stock,
+        image,
+        category,
+        adminId,
+        created_at,
+      }
+
+      return await this.productRepository.insert(entity)
     }
   }
 }
