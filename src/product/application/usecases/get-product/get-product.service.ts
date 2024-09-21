@@ -6,7 +6,6 @@ import { ProductOutput } from '../../dtos/product-output.dto'
 export namespace GetProductService {
   export type Input = {
     productId: string
-    adminId: string
   }
   export type Output = ProductOutput
 

@@ -26,7 +26,7 @@ import { UpdateUserDto } from './dtos/update-user.dto'
 export class UserController {
   constructor(
     private readonly createUserService: CreateUserService.UseCase,
-    private readonly GetUserService: GetUserService.UseCase,
+    private readonly getUserService: GetUserService.UseCase,
     private readonly updateUserService: UpdateUserService.UseCase,
     private readonly findAllUsersService: FindAllUsersService.UseCase,
     private readonly deleteUserService: DeleteUserService.UseCase,
@@ -49,10 +49,7 @@ export class UserController {
   }
 
   @Post('login')
-  async login(
-    @Body() loginUserDto: LoginUserDto,
-    @Headers('Authorization') authorization: string,
-  ) {
+  async login(@Body() loginUserDto: LoginUserDto) {
     const { password, ...restOutput } =
       await this.loginUserService.execute(loginUserDto)
     const tokenJwt = await this.authService.generateJwt(restOutput.userId)
@@ -80,7 +77,7 @@ export class UserController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    const getUser = await this.GetUserService.execute({ userId: id })
+    const getUser = await this.getUserService.execute({ userId: id })
     delete getUser.password
     return {
       data: getUser,

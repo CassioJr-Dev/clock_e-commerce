@@ -1,3 +1,4 @@
+import { AuthModule } from '@/auth/auth.module'
 import { DatabaseModule } from '@/shared/database/database.module'
 import { Module } from '@nestjs/common'
 import { CreateProductService } from '../application/usecases/create-product/create-product.service'
@@ -9,7 +10,7 @@ import { ProductRepository } from './database/repository/product.repository'
 import { ProductController } from './product.controller'
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, AuthModule],
   controllers: [ProductController],
   providers: [
     ProductRepository,

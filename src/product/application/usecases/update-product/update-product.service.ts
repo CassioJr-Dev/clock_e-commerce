@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common'
 import { ProductInput } from '../../dtos/product-input.dto'
 
 export namespace UpdateProductService {
-  export type Input = ProductInput & { productId: string }
+  export type Input = Partial<ProductInput> & { productId?: string }
   export type Output = {}
 
   @Injectable()

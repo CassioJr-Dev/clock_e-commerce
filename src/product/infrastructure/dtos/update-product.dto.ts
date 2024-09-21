@@ -1,8 +1,9 @@
 import { UpdateProductService } from '@/product/application/usecases/update-product/update-product.service'
 
 export class UpdateProductDto
-  implements Omit<UpdateProductService.Input, 'adminId' | 'productId'>
+  implements Omit<UpdateProductService.Input, 'adminId'>
 {
+  productId?: string
   name?: string
   description?: string
   price?: number
