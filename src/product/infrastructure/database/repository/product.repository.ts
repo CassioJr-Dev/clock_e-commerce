@@ -80,7 +80,7 @@ export class ProductRepository {
     return {
       ...create,
       price: Number(create.price.toString()),
-      oldPrice: Number(create.price.toString()),
+      oldPrice: Number(create.oldPrice?.toString() ?? null),
     }
   }
 
@@ -103,7 +103,7 @@ export class ProductRepository {
         (model[index] = {
           ...model,
           price: Number(model.price.toString()),
-          oldPrice: Number(model.price.toString()),
+          oldPrice: Number(model.oldPrice?.toString() ?? null),
         }),
     )
   }
@@ -121,7 +121,7 @@ export class ProductRepository {
     return {
       ...update,
       price: Number(update.price.toString()),
-      oldPrice: Number(update.price.toString()),
+      oldPrice: Number(update.oldPrice?.toString() ?? null),
     }
   }
 
@@ -150,7 +150,7 @@ export class ProductRepository {
       return {
         ...product,
         price: Number(product.price.toString()),
-        oldPrice: Number(product.price.toString()),
+        oldPrice: Number(product.oldPrice?.toString() ?? null),
       }
     } catch {
       throw new NotFoundException('Produto não encontrado')

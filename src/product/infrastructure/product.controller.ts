@@ -66,8 +66,9 @@ export class ProductController {
   }
 
   @UseGuards(AuthGuard)
-  @Patch()
+  @Patch(':id')
   async update(
+    @Param('id') id: string,
     @Body() updateProductDto: UpdateProductDto,
     @Headers('Authorization') authorization: string,
   ) {
@@ -75,6 +76,7 @@ export class ProductController {
     const updateUser = await this.updateProductService.execute({
       adminId: extractAdminId,
       ...updateProductDto,
+      productId: id,
     })
     return {
       data: updateUser,
@@ -83,7 +85,7 @@ export class ProductController {
 
   @UseGuards(AuthGuard)
   @HttpCode(204)
-  @Delete()
+  @Delete(':id')
   async remove(
     @Param('id') id: string,
     @Headers('Authorization') authorization: string,
