@@ -13,7 +13,7 @@ import { CartRepository } from './database/repository/cart.repository'
     CartRepository,
     CreateCartService.UseCase,
     GetCartService,
-    DeleteCartService,
+    DeleteCartService.UseCase,
   ],
 })
 export class CartModule {}

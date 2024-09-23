@@ -13,7 +13,7 @@ export namespace DeleteUserService {
   export class UseCase implements DefaultUseCase<Input, Output> {
     constructor(private readonly userRepository: UserRepository) {}
 
-    async execute(input: Input): Promise<void> {
+    async execute(input: Input): Promise<Output> {
       await this.userRepository.delete(input.userId)
     }
   }

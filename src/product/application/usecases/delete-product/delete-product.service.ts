@@ -13,7 +13,7 @@ export namespace DeleteProductService {
   export class UseCase implements DefaultUseCase<Input, Output> {
     constructor(private readonly productRepository: ProductRepository) {}
 
-    async execute(input: Input): Promise<void> {
+    async execute(input: Input): Promise<Output> {
       await this.productRepository.delete(input.productId, input.adminId)
     }
   }

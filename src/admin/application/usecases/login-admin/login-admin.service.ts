@@ -23,7 +23,7 @@ export namespace LoginAdminService {
       private hashProvider: HashProviderService,
     ) {}
 
-    async execute(input: Input) {
+    async execute(input: Input): Promise<Output> {
       const { email, password } = input
 
       if (!email || !password) {

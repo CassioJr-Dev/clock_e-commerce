@@ -15,7 +15,7 @@ export namespace CreateCartService {
   export class UseCase implements DefaultUseCase<Input, Output> {
     constructor(private readonly cartRepository: CartRepository) {}
 
-    async execute(input: CartInput): Promise<CartOutput> {
+    async execute(input: Input): Promise<Output> {
       const { userId } = input
 
       if (!userId) {
