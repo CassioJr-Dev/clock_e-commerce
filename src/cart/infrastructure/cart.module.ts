@@ -12,8 +12,8 @@ import { CartRepository } from './database/repository/cart.repository'
   providers: [
     CartRepository,
     CreateCartService.UseCase,
-    GetCartService,
+    GetCartService.UseCase,
     DeleteCartService.UseCase,
   ],
 })
-export class CartModule {}
+export class CartModule { }
