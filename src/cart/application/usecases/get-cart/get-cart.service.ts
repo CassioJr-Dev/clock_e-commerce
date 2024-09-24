@@ -10,7 +10,7 @@ export namespace GetCartService {
 
   @Injectable()
   export class UseCase implements DefaultUseCase<Input, Output> {
-    constructor(private readonly cartRepository: CartRepository) { }
+    constructor(private readonly cartRepository: CartRepository) {}
 
     async execute(input: Input): Promise<Output> {
       return this.cartRepository.findCart(input.cartId, input.userId)
