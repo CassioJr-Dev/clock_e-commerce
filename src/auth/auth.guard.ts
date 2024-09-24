@@ -8,7 +8,7 @@ import { AuthService } from './auth.service'
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest()
@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
     try {
       request['user'] = await this.authService.verifyJwt(token)
     } catch {
-      throw new UnauthorizedException()
+      throw new UnauthorizedException('JWT has expired')
     }
     return true
   }

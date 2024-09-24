@@ -8,7 +8,7 @@ import {
 
 @Injectable()
 export class CartRepository {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: PrismaService) { }
 
   async createCart(cart: CartEntity): Promise<CartEntity> {
     const cartExists = await this.cartExists(cart.cartId, cart.userId)
@@ -33,7 +33,7 @@ export class CartRepository {
   }
 
   async deleteCart(cartId: string, userId: string): Promise<void> {
-    const cartExists = await this.cartExists(userId, cartId)
+    const cartExists = await this.cartExists(cartId, userId)
 
     if (!cartExists) {
       throw new NotFoundException('Carrinho não encontrado')

@@ -1,3 +1,4 @@
+import { AuthModule } from '@/auth/auth.module'
 import { DatabaseModule } from '@/shared/database/database.module'
 import { Module } from '@nestjs/common'
 import { CreateCartService } from '../application/usecases/create-cart/create-cart.service'
@@ -7,7 +8,7 @@ import { CartController } from './cart.controller'
 import { CartRepository } from './database/repository/cart.repository'
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, AuthModule],
   controllers: [CartController],
   providers: [
     CartRepository,
@@ -16,4 +17,4 @@ import { CartRepository } from './database/repository/cart.repository'
     DeleteCartService.UseCase,
   ],
 })
-export class CartModule {}
+export class CartModule { }
