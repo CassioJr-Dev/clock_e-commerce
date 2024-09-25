@@ -17,4 +17,4 @@ import { CartRepository } from './database/repository/cart.repository'
     DeleteCartService.UseCase,
   ],
 })
-export class CartModule { }
+export class CartModule {}

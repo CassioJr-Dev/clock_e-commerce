@@ -8,7 +8,7 @@ import {
 
 @Injectable()
 export class CartRepository {
-  constructor(private prismaService: PrismaService) { }
+  constructor(private prismaService: PrismaService) {}
 
   async createCart(cart: CartEntity): Promise<CartEntity> {
     const cartExists = await this.cartExists(cart.cartId, cart.userId)
