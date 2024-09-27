@@ -1,7 +1,7 @@
 import { CartItem } from '@prisma/client'
 
 export class CartItemEntity implements CartItem {
-  cartItemId: string
+  itemId: string
   cartId: string
   productId: string
   quantity: number
