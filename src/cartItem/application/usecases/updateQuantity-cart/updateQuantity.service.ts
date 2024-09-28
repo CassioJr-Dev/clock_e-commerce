@@ -1,13 +1,15 @@
 import { CartItemRepository } from '@/cartItem/infrastructure/database/repository/cartItem.repository'
 import { UseCase as DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { Injectable } from '@nestjs/common'
-import { CartItemInput } from '../../dtos/cartItem-input.dto'
 import { CartItemOutput } from '../../dtos/cartItem-output.dto'
 
 export namespace UpdateItemService {
-  export type Input = Required<
-    CartItemInput & { itemId: string; userId: string }
-  >
+  export type Input = {
+    itemId: string
+    cartId: string
+    userId: string
+    quantity: number
+  }
   export type Output = CartItemOutput
 
   @Injectable()
@@ -18,11 +20,14 @@ export namespace UpdateItemService {
       const userId = input.userId
 
       delete input.userId
-      const item = await this.cartItemRepository.findItem(input.itemId, userId)
+      const item = await this.cartItemRepository.findItem(
+        input.itemId,
+        input.cartId,
+      )
 
       if (input.quantity) item.quantity = input.quantity
 
-      return await this.cartItemRepository.updateQuantity(input, userId)
+      return await this.cartItemRepository.updateQuantity(item, userId)
     }
   }
 }

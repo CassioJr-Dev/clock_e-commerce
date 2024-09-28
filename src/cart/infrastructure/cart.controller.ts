@@ -34,15 +34,11 @@ export class CartController {
   }
 
   @UseGuards(AuthGuard)
-  @Get(':id')
-  async findCart(
-    @Param('id') cartId: string,
-    @Headers('Authorization') authorization: string,
-  ) {
+  @Get()
+  async findCart(@Headers('Authorization') authorization: string) {
     const extractUserId = await this.authService.extractPayload(authorization)
     const findCart = await this.getCartService.execute({
       userId: extractUserId,
-      cartId,
     })
 
     return findCart

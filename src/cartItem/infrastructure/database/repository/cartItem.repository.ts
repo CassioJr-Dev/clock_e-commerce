@@ -61,7 +61,7 @@ export class CartItemRepository {
   }
 
   async updateQuantity(
-    itemEntity: Omit<CartItemEntity, 'created_at'>,
+    itemEntity: CartItemEntity,
     userId: string,
   ): Promise<CartItemEntity> {
     await this.cartExists(itemEntity.cartId, userId)
@@ -90,7 +90,16 @@ export class CartItemRepository {
       },
     })
 
-    return cartItems
+    const formattedCartItems = cartItems.map(item => ({
+      ...item,
+      product: {
+        ...item.product,
+        price: Number(item.product.price.toString()),
+        oldPrice: Number(item.product.oldPrice?.toString() ?? null),
+      },
+    }))
+
+    return formattedCartItems
   }
 
   async findItem(itemId: string, cartId: string): Promise<CartItemEntity> {

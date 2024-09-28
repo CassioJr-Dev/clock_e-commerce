@@ -5,7 +5,7 @@ import { CartInput } from '../../dtos/cart-input'
 import { CartOutput } from '../../dtos/cart-output'
 
 export namespace GetCartService {
-  export type Input = CartInput & { cartId: string }
+  export type Input = CartInput
   export type Output = CartOutput
 
   @Injectable()
@@ -13,7 +13,7 @@ export namespace GetCartService {
     constructor(private readonly cartRepository: CartRepository) {}
 
     async execute(input: Input): Promise<Output> {
-      return this.cartRepository.findCart(input.cartId, input.userId)
+      return this.cartRepository.findCart(input.userId)
     }
   }
 }

@@ -5,8 +5,8 @@ import { CartItemOutput } from '../../dtos/cartItem-output.dto'
 
 export namespace GetItemService {
   export type Input = {
-    itemId: string
     cartId: string
+    itemId: string
   }
   export type Output = CartItemOutput
 

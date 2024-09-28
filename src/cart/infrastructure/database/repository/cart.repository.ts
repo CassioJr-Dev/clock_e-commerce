@@ -11,7 +11,7 @@ export class CartRepository {
   constructor(private prismaService: PrismaService) {}
 
   async createCart(cart: CartEntity): Promise<CartEntity> {
-    const cartExists = await this.cartExists(cart.cartId, cart.userId)
+    const cartExists = await this.cartExists(cart.userId)
     if (cartExists) {
       throw new ConflictException('O carrinho já existe')
     }
@@ -22,8 +22,8 @@ export class CartRepository {
     return createCart
   }
 
-  async findCart(cartId: string, userId: string): Promise<CartEntity> {
-    const findCart = await this.cartExists(cartId, userId)
+  async findCart(userId: string): Promise<CartEntity> {
+    const findCart = await this.cartExists(userId)
 
     if (!findCart) {
       throw new NotFoundException('Carrinho não encontrado')
@@ -33,7 +33,7 @@ export class CartRepository {
   }
 
   async deleteCart(cartId: string, userId: string): Promise<void> {
-    const cartExists = await this.cartExists(cartId, userId)
+    const cartExists = await this.cartExists(userId, cartId)
 
     if (!cartExists) {
       throw new NotFoundException('Carrinho não encontrado')
@@ -44,13 +44,18 @@ export class CartRepository {
   }
 
   private async cartExists(
-    cartId: string,
     userId: string,
+    cartId?: string,
   ): Promise<CartEntity> {
-    const findCart = await this.prismaService.cart.findUnique({
-      where: { cartId, userId },
-    })
+    const whereClause = { userId }
 
+    if (cartId) {
+      whereClause['cartId'] = cartId
+    }
+
+    const findCart = await this.prismaService.cart.findUnique({
+      where: whereClause,
+    })
     return findCart
   }
 }
