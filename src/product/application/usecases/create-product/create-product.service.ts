@@ -25,7 +25,6 @@ export namespace CreateProductService {
         category,
         adminId,
       } = input
-      console.log(oldPrice)
       if (!name || !price || !stock || !image || !category || !adminId) {
         throw new BadRequestException('Dados de entrada não fornecidos')
       }
@@ -46,7 +45,7 @@ export namespace CreateProductService {
         adminId,
         created_at,
       }
-      console.log(entity)
+
       return await this.productRepository.insert(entity)
     }
   }

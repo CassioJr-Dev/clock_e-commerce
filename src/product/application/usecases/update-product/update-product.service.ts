@@ -2,14 +2,15 @@ import { ProductRepository } from '@/product/infrastructure/database/repository/
 import { UseCase as DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { Injectable } from '@nestjs/common'
 import { ProductInput } from '../../dtos/product-input.dto'
+import { ProductOutput } from '../../dtos/product-output.dto'
 
 export namespace UpdateProductService {
   export type Input = Partial<ProductInput> & { productId: string }
-  export type Output = {}
+  export type Output = ProductOutput
 
   @Injectable()
   export class UseCase implements DefaultUseCase<Input, Output> {
-    constructor(private readonly productRepository: ProductRepository) {}
+    constructor(private readonly productRepository: ProductRepository) { }
 
     async execute(input: Input): Promise<Output> {
       const {

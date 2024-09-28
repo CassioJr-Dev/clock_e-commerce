@@ -2,7 +2,7 @@ import { CartItemRepository } from '@/cartItem/infrastructure/database/repositor
 import { UseCase as DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { Injectable } from '@nestjs/common'
 
-export namespace FindAllUsersService {
+export namespace FindAllItemsService {
   export type Input = {
     cartId: string
     userId: string
@@ -13,7 +13,7 @@ export namespace FindAllUsersService {
 
   @Injectable()
   export class UseCase implements DefaultUseCase<Input, Output> {
-    constructor(private readonly cartItemRepository: CartItemRepository) {}
+    constructor(private readonly cartItemRepository: CartItemRepository) { }
 
     async execute(input: Input): Promise<Output> {
       return this.cartItemRepository.findAll(input.cartId, input.userId)

@@ -9,7 +9,7 @@ import {
 
 @Injectable()
 export class CartItemRepository {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: PrismaService) { }
 
   async addItemToCart(
     item: CartItemEntity,
@@ -61,16 +61,18 @@ export class CartItemRepository {
   }
 
   async updateQuantity(
-    itemEntity: CartItemEntity,
+    itemEntity: Omit<CartItemEntity, 'created_at'>,
     userId: string,
   ): Promise<CartItemEntity> {
     await this.cartExists(itemEntity.cartId, userId)
 
-    const item = await this.itemExists(itemEntity.itemId, itemEntity.cartId)
+    await this.itemExists(itemEntity.itemId, itemEntity.cartId)
 
     const updateItem = await this.prismaService.cartItem.update({
       where: { itemId: itemEntity.itemId, cartId: itemEntity.cartId },
-      data: itemEntity,
+      data: {
+        quantity: itemEntity.quantity
+      },
     })
 
     return updateItem
@@ -83,12 +85,22 @@ export class CartItemRepository {
       where: {
         cartId,
       },
+      include: {
+        product: true,
+      },
     })
 
     return cartItems
   }
 
-  async itemExists(itemId: string, cartId: string): Promise<CartItemEntity> {
+  async findItem(itemId: string, cartId: string): Promise<CartItemEntity> {
+    return this.itemExists(itemId, cartId)
+  }
+
+  private async itemExists(
+    itemId: string,
+    cartId: string,
+  ): Promise<CartItemEntity> {
     const findItem = await this.prismaService.cartItem.findUnique({
       where: { itemId, cartId },
     })
@@ -100,7 +112,10 @@ export class CartItemRepository {
     return findItem
   }
 
-  async cartExists(cartId: string, userId: string): Promise<CartEntity> {
+  private async cartExists(
+    cartId: string,
+    userId: string,
+  ): Promise<CartEntity> {
     const findCart = await this.prismaService.cart.findUnique({
       where: { cartId, userId },
     })
