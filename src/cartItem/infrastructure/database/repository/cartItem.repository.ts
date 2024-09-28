@@ -9,7 +9,7 @@ import {
 
 @Injectable()
 export class CartItemRepository {
-  constructor(private prismaService: PrismaService) { }
+  constructor(private prismaService: PrismaService) {}
 
   async addItemToCart(
     item: CartItemEntity,
@@ -71,7 +71,7 @@ export class CartItemRepository {
     const updateItem = await this.prismaService.cartItem.update({
       where: { itemId: itemEntity.itemId, cartId: itemEntity.cartId },
       data: {
-        quantity: itemEntity.quantity
+        quantity: itemEntity.quantity,
       },
     })
 

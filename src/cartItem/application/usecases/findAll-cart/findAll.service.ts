@@ -13,7 +13,7 @@ export namespace FindAllItemsService {
 
   @Injectable()
   export class UseCase implements DefaultUseCase<Input, Output> {
-    constructor(private readonly cartItemRepository: CartItemRepository) { }
+    constructor(private readonly cartItemRepository: CartItemRepository) {}
 
     async execute(input: Input): Promise<Output> {
       return this.cartItemRepository.findAll(input.cartId, input.userId)

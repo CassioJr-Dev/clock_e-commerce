@@ -3,7 +3,7 @@ import { UseCase as DefaultUseCase } from '@/shared/application/usecases/use-cas
 import { Injectable } from '@nestjs/common'
 import { CartItemOutput } from '../../dtos/cartItem-output.dto'
 
-export namespace GetProductService {
+export namespace GetItemService {
   export type Input = {
     itemId: string
     cartId: string
