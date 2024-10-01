@@ -8,13 +8,14 @@ datasource db {
 }
 
 model User {
-  userId     String   @id @unique @db.Text
-  name       String   @db.VarChar(255)
-  email      String   @unique @db.VarChar(255)
-  password   String   @db.VarChar(100)
-  telephone  String   @unique @db.VarChar(100)
+  userId     String    @id @unique @db.Text
+  name       String    @db.VarChar(255)
+  email      String    @unique @db.VarChar(255)
+  password   String    @db.VarChar(100)
+  telephone  String    @unique @db.VarChar(100)
   created_at DateTime
   Cart       Cart?
+  Address    Address[]
 
   @@map("user")
 }
@@ -68,4 +69,21 @@ model CartItem {
   created_at DateTime
 
   @@map("cartItem")
+}
+
+model Address {
+  addressId    String   @id @unique @db.Text
+  cep          String
+  street       String
+  complement   String
+  unit         String
+  neighborhood String
+  city         String
+  uf           String
+  state        String
+  user         User     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  userId       String
+  created_at   DateTime
+
+  @@map("address")
 }
