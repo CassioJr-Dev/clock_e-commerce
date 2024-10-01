@@ -13,7 +13,7 @@ export class AddressRepository {
   }
 
   async findById(addressId: string): Promise<AddressEntity> {
-    return this._get(addressId)
+    return this.prismaService.address.findUnique({ where: { addressId } })
   }
 
   async findAll(userId: string): Promise<AddressEntity[]> {
@@ -39,18 +39,6 @@ export class AddressRepository {
       where: { addressId, userId },
     })
   }
-
-  // protected async _get(addressId: string): Promise<AddressEntity> {
-  //   try {
-  //     return await this.prismaService.address.findUniqueOrThrow({
-  //       where: { addressId },
-  //     })
-  //   } catch {
-  //     throw new NotFoundException(
-  //       `Endereço não encontrado usando o ID: ${addressId}`,
-  //     )
-  //   }
-  // }
 
   protected async _get(
     addressId: string,
