@@ -23,7 +23,7 @@ export class AddressRepository {
   }
 
   async update(entity: AddressEntity): Promise<AddressEntity> {
-    await this._get(entity.addressId)
+    await this._get(entity.addressId, entity.userId)
 
     return await this.prismaService.address.update({
       data: entity,
@@ -33,22 +33,42 @@ export class AddressRepository {
     })
   }
 
-  async delete(addressId: string): Promise<void> {
-    await this._get(addressId)
+  async delete(addressId: string, userId: string): Promise<void> {
+    await this._get(addressId, userId)
     await this.prismaService.address.delete({
-      where: { addressId },
+      where: { addressId, userId },
     })
   }
 
-  protected async _get(addressId: string): Promise<AddressEntity> {
+  // protected async _get(addressId: string): Promise<AddressEntity> {
+  //   try {
+  //     return await this.prismaService.address.findUniqueOrThrow({
+  //       where: { addressId },
+  //     })
+  //   } catch {
+  //     throw new NotFoundException(
+  //       `Endereço não encontrado usando o ID: ${addressId}`,
+  //     )
+  //   }
+  // }
+
+  protected async _get(
+    addressId: string,
+    userId?: string,
+  ): Promise<AddressEntity> {
+    const whereClause = { addressId }
+
+    if (userId) {
+      whereClause['userId'] = userId
+    }
+
     try {
-      return await this.prismaService.address.findUniqueOrThrow({
-        where: { addressId },
+      const address = await this.prismaService.address.findUniqueOrThrow({
+        where: whereClause,
       })
+      return address
     } catch {
-      throw new NotFoundException(
-        `Endereço não encontrado usando o ID: ${addressId}`,
-      )
+      throw new NotFoundException('Endereço não encontrado')
     }
   }
 }
