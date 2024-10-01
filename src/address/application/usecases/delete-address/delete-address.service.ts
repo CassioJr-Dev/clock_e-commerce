@@ -2,7 +2,7 @@ import { AddressRepository } from '@/address/infrastructure/database/repository/
 import { UseCase as DefaultUseCase } from '@/shared/application/usecases/use-case'
 import { Injectable } from '@nestjs/common'
 
-export namespace DeleteProductService {
+export namespace DeleteAddressService {
   export type Input = {
     addressId: string
     userId: string

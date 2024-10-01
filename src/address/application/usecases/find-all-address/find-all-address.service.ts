@@ -5,7 +5,6 @@ import { AddressOutput } from '../../dtos/address-output.dto'
 
 export namespace FindAllAddressService {
   export type Input = {
-    cartId: string
     userId: string
   }
 

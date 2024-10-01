@@ -1,6 +1,6 @@
 import { AddressOutput } from '@/address/application/dtos/address-output.dto'
 
-export class CreateAddressDto implements AddressOutput {
+export class CreateAddressDto implements Omit<AddressOutput, 'userId'> {
   addressId: string
   cep: string
   street: string
@@ -10,6 +10,5 @@ export class CreateAddressDto implements AddressOutput {
   city: string
   uf: string
   state: string
-  userId: string
   created_at: Date
 }

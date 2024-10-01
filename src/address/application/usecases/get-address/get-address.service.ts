@@ -6,7 +6,6 @@ import { AddressOutput } from '../../dtos/address-output.dto'
 export namespace GetAddressService {
   export type Input = {
     addressId: string
-    itemId: string
   }
   export type Output = AddressOutput
 

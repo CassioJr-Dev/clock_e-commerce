@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
+import { AddressModule } from './address/infrastructure/address.module'
 import { AdminModule } from './admin/infrastructure/admin.module'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
@@ -18,6 +19,7 @@ import { UserModule } from './user/infrastructure/user.module'
     AdminModule,
     CartModule,
     CartItemModule,
+    AddressModule,
   ],
   controllers: [AppController],
   providers: [AppService],
