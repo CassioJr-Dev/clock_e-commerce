@@ -49,15 +49,20 @@ export class AddressController {
     }
   }
 
-  @Get(':userId')
-  async findAll(@Param(':userId') userId: string) {
-    const findAllAddress = await this.findAllAddressService.execute({ userId })
+  @UseGuards(AuthGuard)
+  @Get()
+  async findAll(@Headers('Authorization') authorization: string) {
+    const extractUserId = await this.authService.extractPayload(authorization)
+    const findAllAddress = await this.findAllAddressService.execute({
+      userId: extractUserId,
+    })
 
     return {
       data: findAllAddress,
     }
   }
 
+  @UseGuards(AuthGuard)
   @Get(':addressId')
   async findOne(@Param('addressId') addressId: string) {
     const getAddress = await this.getAddressService.execute({ addressId })

@@ -1,5 +1,5 @@
 import { AddressInput } from '@/address/application/dtos/address-input.dto'
-import { IsNotEmpty, IsPostalCode, IsString } from 'class-validator'
+import { IsNotEmpty, IsOptional, IsPostalCode, IsString } from 'class-validator'
 
 export class CreateAddressDto implements Omit<AddressInput, 'userId'> {
   @IsPostalCode('BR', { message: 'Código postal inválido para o Brasil.' })
@@ -12,7 +12,7 @@ export class CreateAddressDto implements Omit<AddressInput, 'userId'> {
   street: string
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   complement: string
 
   @IsString()

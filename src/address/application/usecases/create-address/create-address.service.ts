@@ -16,7 +16,9 @@ export namespace CreateAddressService {
     constructor(private readonly addressRepository: AddressRepository) {}
 
     async execute(input: Input): Promise<Output> {
-      if (Object.values(input).some(value => !value)) {
+      const { complement, ...inputAddress } = input
+
+      if (Object.values(inputAddress).some(value => !value)) {
         throw new BadRequestException('Todos os campos são obrigatórios.')
       }
 

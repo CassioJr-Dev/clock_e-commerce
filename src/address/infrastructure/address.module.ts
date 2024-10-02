@@ -7,11 +7,13 @@ import { FindAllAddressService } from '../application/usecases/find-all-address/
 import { GetAddressService } from '../application/usecases/get-address/get-address.service'
 import { UpdateAddressService } from '../application/usecases/update-address/update-address.service'
 import { AddressController } from './address.controller'
+import { AddressRepository } from './database/repository/address.repository'
 
 @Module({
   imports: [DatabaseModule, AuthModule],
   controllers: [AddressController],
   providers: [
+    AddressRepository,
     CreateAddressService.UseCase,
     GetAddressService.UseCase,
     FindAllAddressService.UseCase,
